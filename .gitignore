@@ -1,0 +1,39 @@
+# temporary
+tmp/
+tmp/*
+temp/
+out.tmp
+*.tmp
+
+# build files
+*.out
+*.check_cache
+*.log
+build/
+bin/
+
+# build dirs
+cmake-build-*
+cmake-build-debug/
+cmake-build-release/
+build-release/
+build-debug/
+build-*
+CMakelFiles
+
+# ide
+**/.idea/
+**/.cache/
+
+/bin/*
+/generated/*
+*.pro.user*
+*.bak
+*/build-*
+test/*/bin
+
+# docs
+docs/doxygen/*
+
+# packages
+*.deb
