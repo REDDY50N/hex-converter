@@ -50,4 +50,10 @@ add_subdirectory(src)
 # -----------------------------------------------
 # UNIT TESTING
 # -----------------------------------------------
-include(CTest)
+OPTION(BUILD_TESTING "Enable unit testing" ON)
+if(BUILD_TESTING)
+    include(CTest)
+    # we can't use auto detect tests now - does not work properly for now
+    #include(Catch) fails - https://github.com/catchorg/Catch2/pull/2130
+    # work around is to specify the full path
+endif()
