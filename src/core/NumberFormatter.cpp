@@ -9,18 +9,30 @@
 // ----------------------------------------------
 QString NumberFormatter::toBinary(std::uint64_t value, int width)
 {
-  // -- Default return string is zero
-  QString out{"0"};
+  // -- Special case: Return 0 as "0"
+  if (value == 0ULL) {
+    QString out{"0"};
 
-  do {
-    // -- Compare LSB with 1 and add 1 if yes, else add 0
+    if (width > 0 && out.size() < width) {
+      out = QString(width - out.size(), QLatin1Char('0')) + out;
+    }
+
+    return out;
+  }
+
+  // -- Start with empty string (do not initialize with 0)
+  QString out{};
+
+  while (value != 0ULL) {
+
+    // -- Take least significant bit and prepend it to the output string
     out.prepend((value & 1ULL) ? QLatin1Char('1') : QLatin1Char('0'));
 
-    // -- Shift right to remove last processed bit
+    // -- Remove this bit by right shift to process the next bit in the next iteration
     value >>= 1ULL;
-  } while (value != 0ULL);
+  }
 
-  // -- Add leading zeros to fill empty spaces
+  // -- Fill with leading 0
   if (width > 0 && out.size() < width) {
     out = QString(width - out.size(), QLatin1Char('0')) + out;
   }

@@ -1,5 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
-
+cmake_minimum_required(VERSION 3.16...3.30)
 
 # ----------------------------------------------
 # PROJECT SETUP
@@ -14,28 +13,41 @@ set(EXEC_NAME ${PROJECT_NAME})
 # COMPILER SETUP
 # ----------------------------------------------
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(warnings "-Wall -Wextra -Wpedantic")
+# Let's ensure -std=c++xx instead of -std=g++xx
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# HINT: Turn ON to fix compiler warnings (Only supported in CMake >= 3.24)
+set(CMAKE_COMPILE_WARNING_AS_ERROR OFF)
+
+
 
 # ----------------------------------------------
 # QT SETUP
 # ----------------------------------------------
 set(CMAKE_PREFIX_PATH ~/Qt/6.9.1/gcc_64/lib/cmake/Qt6)
+find_package(Qt6 COMPONENTS Core REQUIRED)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-# ----------------------------------------------
-# FIND PACKAGES
-# ----------------------------------------------
-find_package(Qt6 COMPONENTS Core REQUIRED)
+
+# -----------------------------------------------
+# CMAKE PACKAGE MANAGER (CPM
+# -----------------------------------------------
+include(cmake/CPM.cmake)
+CPMAddPackage(NAME Catch2    GIT_REPOSITORY "https://github.com/catchorg/Catch2.git"   GIT_TAG "v3.8.1")
 
 # ----------------------------------------------
 # TARGET SETUP
 # ----------------------------------------------
+# bin dir: https://stackoverflow.com/questions/6594796/how-do-i-make-cmake-output-into-a-bin-dir
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 add_subdirectory(src)
-#add_executable(${EXEC_NAME} main.cpp)
-#target_link_libraries(${EXEC_NAME} Qt::Core)
-#
+
+# -----------------------------------------------
+# UNIT TESTING
+# -----------------------------------------------
+include(CTest)
