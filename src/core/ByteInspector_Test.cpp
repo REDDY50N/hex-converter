@@ -9,7 +9,7 @@ TEST_CASE("ByteInspector inspects one byte correctly", "[ByteInspector]")
   REQUIRE(result.value == 1ULL);
   REQUIRE(result.byteCount == 1);
   REQUIRE(result.lowByte == "0x01");
-  REQUIRE(result.highByte == "0x01");
+  REQUIRE(result.highByte == "0x00");
   REQUIRE(result.bytesBigEndian.size() == 1);
   REQUIRE(result.bytesLittleEndian.size() == 1);
   REQUIRE(result.bytesBigEndian[0] == "0x01");

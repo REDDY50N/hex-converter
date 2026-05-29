@@ -1,5 +1,10 @@
 #pragma once
 
+/*!
+ * ByteInspector class is for low-level byte analysis
+ *
+ * It breaks a numbers into bytes, bit groups and high/low byte. */
+
 #include <cstdint>
 #include <QStringList>
 

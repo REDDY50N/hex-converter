@@ -50,6 +50,7 @@ add_subdirectory(src)
 # -----------------------------------------------
 # UNIT TESTING
 # -----------------------------------------------
+# https://github.com/catchorg/Catch2/blob/devel/docs/cmake-integration.md
 OPTION(BUILD_TESTING "Enable unit testing" ON)
 if(BUILD_TESTING)
     include(CTest)
@@ -57,3 +58,8 @@ if(BUILD_TESTING)
     #include(Catch) fails - https://github.com/catchorg/Catch2/pull/2130
     # work around is to specify the full path
 endif()
+
+# -----------------------------------------------
+# INSTALLATION
+# -----------------------------------------------
+install(TARGETS ${EXEC_NAME} RUNTIME DESTINATION bin)
