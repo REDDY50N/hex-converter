@@ -1,0 +1,18 @@
+# Catch2 CI/CD example - https://catch2.org/#CI/CD
+
+name: C++ CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Catch2
+        run: sudo apt install catch2
+      - name: Build and test
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+          ./tests
